@@ -1,0 +1,10 @@
+section {
+    border: solid 2px black;
+    display: flex;
+    margin: 3px;
+    padding: 10px;
+}
+
+button {
+    flex-grow: 0;
+}
