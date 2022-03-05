@@ -10,30 +10,26 @@ function App() {
         banana: 0,
         apple: 0,
         kiwi: 0,
-        disabled: false
     })
 
     const {strawberry, banana, apple, kiwi, disabled} = state
 
-    function substract(e) {
-        const newValue = --e.target.value
+    function count(e) {
+        // Check if we need to add or substract
+        const operation = e.target.firstChild.data
+
+        // Check operator and FIRST add or substract, before assigning
+        const newValue = operation === "+" ? ++e.target.value : --e.target.value;
         setState({
             ...state,
+            // Make sure not to count below 0
             [e.target.name]: (newValue < 0) ? 0 : newValue
         })
     }
 
-    function add(e) {
-        const newValue = ++e.target.value
-        setState({
-            ...state,
-            [e.target.name]: newValue
-        })
-    }
-
     function onSubmit(data) {
+        // Combine data and state in new object
         console.log({...data, ...state})
-        // console.log(state)
     }
 
     return (
@@ -46,7 +42,7 @@ function App() {
                 <button
                     type="button"
                     name="strawberry"
-                    onClick={substract}
+                    onClick={count}
                     value={strawberry}
                 >-
                 </button>
@@ -54,7 +50,7 @@ function App() {
                 <button
                     type="button"
                     name="strawberry"
-                    onClick={add}
+                    onClick={count}
                     value={strawberry}
                 >+
                 </button>
@@ -65,7 +61,7 @@ function App() {
                 <button
                     type="button"
                     name="banana"
-                    onClick={substract}
+                    onClick={count}
                     value={banana}
                 >-
                 </button>
@@ -73,7 +69,7 @@ function App() {
                 <button
                     type="button"
                     name="banana"
-                    onClick={add}
+                    onClick={count}
                     value={banana}
                 >+
                 </button>
@@ -84,7 +80,7 @@ function App() {
                 <button
                     type="button"
                     name="apple"
-                    onClick={substract}
+                    onClick={count}
                     value={apple}
                 >-
                 </button>
@@ -92,7 +88,7 @@ function App() {
                 <button
                     type="button"
                     name="apple"
-                    onClick={add}
+                    onClick={count}
                     value={apple}
                 >+
                 </button>
@@ -103,7 +99,7 @@ function App() {
                 <button
                     type="button"
                     name="kiwi"
-                    onClick={substract}
+                    onClick={count}
                     value={kiwi}
                 >-
                 </button>
@@ -111,7 +107,7 @@ function App() {
                 <button
                     type="button"
                     name="kiwi"
-                    onClick={add}
+                    onClick={count}
                     value={kiwi}
                 >+
                 </button>
