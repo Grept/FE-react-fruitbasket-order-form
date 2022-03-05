@@ -3,8 +3,24 @@ section {
     display: flex;
     margin: 3px;
     padding: 10px;
+    justify-content: center;
+    max-width: 400px;
 }
 
 button {
     flex-grow: 0;
+    margin: 5px;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+ form label {
+     margin: 10px;
+ }
+
+ .error {
+     color: red;
+     font-size: 10px;
+ }
