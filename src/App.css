@@ -1,0 +1,37 @@
+section {
+    border: solid 2px black;
+    display: flex;
+    margin: 3px;
+    padding: 10px;
+    justify-content: center;
+    width: 400px;
+    border-radius: 10px;
+}
+
+button {
+    flex-grow: 0;
+    margin: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+ form label {
+     margin: 10px;
+ }
+
+ .error {
+     color: red;
+     font-size: 10px;
+ }
+
+ main {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ h1 {
+     font-family: "Helvetica Neue";
+ }
