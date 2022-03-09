@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import {useForm} from 'react-hook-form'
 
+import Button from "./components/Button";
+import Section from "./components/Section";
+
 function App() {
     const {register, handleSubmit, formState: {errors}} = useForm()
 
@@ -12,7 +15,8 @@ function App() {
         kiwi: 0,
     })
 
-    const {strawberry, banana, apple, kiwi, disabled} = state
+    // Destructure state fields
+    const {strawberry, banana, apple, kiwi} = state
 
     function count(e) {
         // Check if we need to add or substract
@@ -29,91 +33,44 @@ function App() {
 
     function onSubmit(data) {
         // Combine data and state in new object
-        console.log({...data, ...state})
+        console.log({...data, order: {...state}})
     }
 
     return (
-        <>
+        <main>
             {/*    FRUIT PICKER    */}
 
             <h1>Fruitmand bezorgservice</h1>
-            <section>
-                <p>🍓Strawberry</p>
-                <button
-                    type="button"
-                    name="strawberry"
-                    onClick={count}
-                    value={strawberry}
-                >-
-                </button>
-                <p>{strawberry}</p>
-                <button
-                    type="button"
-                    name="strawberry"
-                    onClick={count}
-                    value={strawberry}
-                >+
-                </button>
-            </section>
+            <Section
+                name="strawberry"
+                onClick={count}
+                value={strawberry}
+            >
+            </Section>
 
-            <section>
-                <p>🍌Banana</p>
-                <button
-                    type="button"
-                    name="banana"
-                    onClick={count}
-                    value={banana}
-                >-
-                </button>
-                <p>{banana}</p>
-                <button
-                    type="button"
-                    name="banana"
-                    onClick={count}
-                    value={banana}
-                >+
-                </button>
-            </section>
+            <Section
+                name="banana"
+                onClick={count}
+                value={banana}
+            >
+            </Section>
 
-            <section>
-                <p>🍏Apple</p>
-                <button
-                    type="button"
-                    name="apple"
-                    onClick={count}
-                    value={apple}
-                >-
-                </button>
-                <p>{apple}</p>
-                <button
-                    type="button"
-                    name="apple"
-                    onClick={count}
-                    value={apple}
-                >+
-                </button>
-            </section>
+            <Section
+                name="apple"
+                onClick={count}
+                value={apple}
+            >
+            </Section>
 
-            <section>
-                <p>🥝Kiwi</p>
-                <button
-                    type="button"
-                    name="kiwi"
-                    onClick={count}
-                    value={kiwi}
-                >-
-                </button>
-                <p>{kiwi}</p>
-                <button
-                    type="button"
-                    name="kiwi"
-                    onClick={count}
-                    value={kiwi}
-                >+
-                </button>
-            </section>
+            <Section
+                name="kiwi"
+                onClick={count}
+                value={kiwi}
+            >
+            </Section>
 
-            <button
+
+            <Button
                 type="button"
                 onClick={() => {
                     setState({
@@ -124,14 +81,14 @@ function App() {
                     })
                 }}
             >RESET
-            </button>
+            </Button>
 
 
             {/*    FORM    */}
 
             <section>
                 <form onSubmit={handleSubmit(onSubmit)}>
-
+                    {/*VOORNAAM*/}
                     <label htmlFor="firstName">
                         Voornaam:
                         <input
@@ -147,6 +104,7 @@ function App() {
                     </label>
                     {errors.firstName && <p className="error">{errors.firstName.message}</p>}
 
+                    {/*ACHTERNAAM*/}
                     <label htmlFor="lastName">
                         Achternaam
                         <input
@@ -162,6 +120,7 @@ function App() {
                     </label>
                     {errors.lastName && <p className="error">{errors.lastName.message}</p>}
 
+                    {/*LEEFTIJD*/}
                     <label htmlFor="age">
                         Leeftijd
                         <input
@@ -177,13 +136,15 @@ function App() {
                     </label>
                     {errors.age && <p className="error">{errors.age.message}</p>}
 
+                    {/*POSTCODE*/}
                     <label htmlFor="postCode">
                         Postcode
                         <input
                             type="text"
                             {...register("postCode", {
                                 pattern: {
-                                    value: /([0-9]{4}[A-Z]{2})/,
+                                    // Allow 4 numbers, optional whitespace and 2 letters (not case-sensitive)
+                                    value: /([0-9]{4}\s?[A-Z]{2})/i,
                                     message: "Voer een geldige postcode in."
                                 },
                                 required: "Voer een postcode in."
@@ -192,6 +153,7 @@ function App() {
                     </label>
                     {errors.postCode && <p className="error">{errors.postCode.message}</p>}
 
+                    {/*BEZORGINGFREQUENTIE*/}
                     <label htmlFor="deliveryFreq">
                         Bezorgfrequentie
                         <select
@@ -203,6 +165,7 @@ function App() {
                         </select>
                     </label>
 
+                    {/*BEZORGMOMENT*/}
                     <label htmlFor="deliveryMoment">
                         <input
                             type="radio"
@@ -220,6 +183,7 @@ function App() {
                         's Avonds
                     </label>
 
+                    {/*OPMERKING*/}
                     <label htmlFor="comment">
                         <textarea
                             {...register("comment")}
@@ -230,6 +194,7 @@ function App() {
                         </textarea>
                     </label>
 
+                    {/*VOORWAARDEN*/}
                     <label htmlFor="termsAgree">
                         <input
                             type="checkbox"
@@ -241,17 +206,12 @@ function App() {
                     </label>
                     {errors.termsAgree && <p className="error">{errors.termsAgree.message}</p>}
 
-                    <button
-                        type="submit"
-                        disabled={disabled}
-                    >
-                        Verzend
-                    </button>
+                    <button type="submit">VERZENDEN</button>
                 </form>
             </section>
 
 
-        </>
+        </main>
     );
 }
 
